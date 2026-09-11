@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boda - Samuel &amp; Maricela</title>
+
+  <!-- Tipografía Romántica y Elegante -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-web: #f7f4ee;           /* Fondo exterior cremoso */
+      --dorado: #c59b27;          /* Dorado elegante */
+      --dorado-oscuro: #9e7a1b;   /* Gradiente de botón */
+      --texto: #2c2c2c;
+      --texto-suave: #555555;
+      --plomo: #888888;
+      --blanco: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
+    body {
+      background-color: var(--bg-web);
+      color: var(--texto);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      text-align: center;
+      line-height: 1.65;
+    }
+
+    body.bloqueado {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* ESQUELA */
+    .esquela {
+      max-width: 700px;
+      width: 100%;
+      margin: 0 auto;
+      background: var(--blanco);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      padding-bottom: 40px;
+    }
+
+    .seccion { padding: 35px 25px; border-bottom: 1px dashed #e5dfd3; }
+
+    /* TIPOGRAFÍAS */
+    /* Nombre de los novios */
+    h1 {
+      font-family: 'Great Vibes', serif;
+      font-size: 2.8rem;
+      letter-spacing: 2px;
+      color: var(--dorado-oscuro);
+      margin: 15px 0;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+      color: var(--dorado-oscuro);
+      margin-bottom: 15px;
+    }
+
+    .ampersand {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.8rem;
+      color: var(--dorado);
+      display: block;
+      margin: 5px 0;
+    }
+
+/* Texto oracion */
+    .oracion {
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--texto-suave);
+      max-width: 550px;
+      margin: 0 auto 20px auto;
+      line-height: 1.7;
+    }
+
+    /* ===================== SELLO VINTAGE (apertura + encabezado) ===================== */
+    .sello-vintage {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: var(--dorado-oscuro);
+      background: radial-gradient(circle at 50% 50%, #fdfbf6 55%, #f5edd7 100%);
+      border: 2px solid var(--dorado);
+      box-shadow: 0 0 0 4px var(--bg-web), 0 0 0 5px var(--dorado), 0 6px 16px rgba(197,155,39,0.35);
+      position: relative;
+      transform: rotate(-3deg);
+      letter-spacing: 1px;
+    }
+    .sello-vintage::before {
+      content: '';
+      position: absolute;
+      inset: 9px;
+      border: 1px dashed var(--dorado);
+      border-radius: 50%;
+      opacity: 0.55;
+    }
+    .sello-vintage span {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.15rem;
+      margin: 0 3px;
+      font-weight: 400;
+    }
+    .sello-container {
+      margin: 25px 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* CARRUSEL DE FOTOS */
+    .slider-box {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      background: #eae6dd;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      object-fit: cover;
+    }
+    .slide.active { opacity: 1; }
+
+    /* GRID DE PADRES E HIJOS */
+    .subtitulo-familia {
+      font-size: 1.25rem;
+      letter-spacing: 2px;
+      font-weight: 600;
+      color: var(--dorado);
+      margin: 20px 0 10px 0;
+      text-transform: uppercase;
+    }
+
+    .grid-dos-columnas {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      font-size: 1.15rem;
+      color: var(--texto-suave);
+      margin-bottom: 10px;
+    }
+
+    /* CONTADOR */
+    .contador-grid {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 15px;
+    }
+    .c-box {
+      background: #faf8f3;
+      border: 1px solid #ebd8b0;
+      padding: 12px;
+      border-radius: 8px;
+      min-width: 75px;
+    }
+    .c-num { font-size: 1.5rem; font-weight: bold; color: var(--dorado-oscuro); display: block; }
+    .c-lab { font-size: 0.65rem; text-transform: uppercase; color: #777; }
+
+    .vencido .c-num { color: var(--plomo) !important; }
+    .vencido-texto { color: var(--plomo) !important; }
+
+    /* ITINERARIO */
+    .itinerario-lista {
+      max-width: 450px;
+      margin: 20px auto 0 auto;
+      text-align: left;
+    }
+    .itinerario-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f2ede4;
+    }
+    .itinerario-hora {
+      font-weight: 600;
+      color: var(--dorado-oscuro);
+      font-size: 1.25rem;
+      min-width: 75px;
+    }
+    .itinerario-nombre {
+      font-size: 0.92rem;
+      color: var(--texto);
+    }
+
+    /* ===================== ÍCONOS — estilo lineal moderno, +50% de tamaño ===================== */
+    .icono-dorado,
+    .icono-decorativo {
+      fill: none;
+      stroke: var(--dorado);
+      stroke-width: 1.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+    .icono-dorado { width: 42px; height: 42px; }      /* antes 28px */
+    .icono-decorativo { width: 54px; height: 54px; margin-bottom: 8px; } /* antes 36px */
+
+    /* BOTONES */
+    .btn-dorado {
+      display: inline-block;
+      background: linear-gradient(135deg, #d4af37 0%, #a67c1e 100%);
+      color: var(--blanco);
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 15px rgba(166, 124, 30, 0.35);
+      border: 1px solid #e2c068;
+      margin-top: 15px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-dorado:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(166, 124, 30, 0.5);
+    }
+
+    .btn-wsp {
+      background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+      border: none;
+      padding: 16px 32px;
+      font-size: 0.9rem;
+    }
+
+    .banco-card {
+      background: #faf8f3;
+      border: 1px dashed var(--dorado);
+      padding: 18px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-size: 1.25rem;
+    }
+
+    /* ===================== REVELADO AL DESLIZAR (scroll reveal) ===================== */
+    .reveal {
+      opacity: 0;
+      filter: blur(9px);
+      transform: translateX(var(--desde-x, -60px)) rotate(var(--desde-rot, -30deg));
+      transform-origin: bottom center;
+      transition: opacity 1.7s cubic-bezier(.19,1,.22,1), transform 1.7s cubic-bezier(.19,1,.22,1), filter 1.7s cubic-bezier(.19,1,.22,1);
+      will-change: transform, opacity, filter;
+    }
+    .reveal.visible {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateX(0) rotate(0deg);
+    }
+    .reveal-izq { --desde-x: -60px; --desde-rot: -30deg; }
+    .reveal-der { --desde-x: 60px; --desde-rot: 30deg; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; filter: none; transform: none; transition: none; }
+    }
+
+    /* AJUSTE RESPONSIVE */
+    @media (max-width: 600px) {
+      .esquela { border-radius: 0; box-shadow: none; }
+      .seccion { padding: 25px 15px; }
+      h1 { font-size: 1.4rem; }
+      .grid-dos-columnas { grid-template-columns: 1fr; gap: 6px; }
+      .slider-box { height: 300px; }
+      .c-box { min-width: 60px; padding: 8px; }
+      .c-num { font-size: 1.2rem; }
+    }
+
+    /* BOTÓN FLOTANTE MÚSICA */
+    .btn-flotante {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #d4af37 0%, #a67c1e 100%);
+      color: #fff;
+      border: 2px solid #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+    .btn-flotante:active { transform: scale(0.9); }
+
+    .fecha-destacada {
+      font-family: 'Cinzel', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--dorado-oscuro);
+      margin: 12px 0 15px 0;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===================== 1. PANTALLA DE APERTURA ===================== */
+    .apertura {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--bg-web);
+    }
+    .apertura-mitad {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 50% 50%, #fffdf8 0%, #f7f0dc 100%);
+      transition: transform 1.1s cubic-bezier(.65,0,.35,1);
+      z-index: 1;
+    }
+    .apertura-mitad.izquierda { left: 0; border-right: 1px solid #e6d9ae; }
+    .apertura-mitad.derecha { right: 0; border-left: 1px solid #e6d9ae; }
+    .apertura-mitad::after {
+      content: '';
+      position: absolute;
+      inset: 14px;
+      border: 1px solid var(--dorado);
+      opacity: 0.35;
+    }
+    .apertura.abierta .apertura-mitad.izquierda { transform: translateX(-100%); }
+    .apertura.abierta .apertura-mitad.derecha { transform: translateX(100%); }
+    .apertura.abierta { pointer-events: none; }
+
+    .apertura-contenido {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+      max-width: 380px;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .apertura.abierta .apertura-contenido {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+
+    .apertura-sello {
+      width: 130px;
+      height: 130px;
+      margin: 0 auto 22px auto;
+      font-size: 1.6rem;
+    }
+
+    .apertura-nombres {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.6rem;
+      color: var(--dorado-oscuro);
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+    .apertura-nombres .amp-mini {
+      font-size: 1.9rem;
+      color: var(--dorado);
+      display: inline-block;
+      margin: 0 6px;
+    }
+
+    .apertura-texto {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.88rem;
+      color: var(--texto-suave);
+      letter-spacing: 0.5px;
+      margin-bottom: 22px;
+    }
+
+    .apertura-btn {
+      background: none;
+      border: 1px solid var(--dorado);
+      color: var(--dorado-oscuro);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 14px 26px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .apertura-btn:hover {
+      background: var(--dorado);
+      color: var(--blanco);
+    }
+    .apertura-btn:active { transform: scale(0.96); }
+
+    /* ===================== INDICADOR "DESLIZA" ===================== */
+    .indicador-desliza {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .indicador-desliza.mostrar { opacity: 1; }
+    .indicador-desliza.oculto { opacity: 0; }
+
+    .indicador-mano {
+      width: 30px;
+      height: 30px;
+      color: var(--dorado-oscuro);
+      transform-origin: 50% 10%;
+      animation: pendulo 1.5s ease-in-out infinite;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+    }
+    @keyframes pendulo {
+      0%, 100% { transform: rotate(-14deg); }
+      50% { transform: rotate(14deg); }
+    }
+    .indicador-texto {
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      font-weight: 600;
+      color: var(--dorado-oscuro);
+      background: rgba(255,255,255,0.85);
+      padding: 3px 10px;
+      border-radius: 10px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .indicador-mano { animation: none; }
+    }
+  </style>
+</head>
+<body class="bloqueado">
+
+<!-- ==================== PANTALLA DE APERTURA ==================== -->
+<div class="apertura" id="apertura">
+  <div class="apertura-mitad izquierda"></div>
+  <div class="apertura-mitad derecha"></div>
+  <div class="apertura-contenido">
+    <div class="sello-vintage apertura-sello">S<span>&amp;</span>M</div>
+    <p class="apertura-nombres">Samuel <span class="amp-mini">&amp;</span> Maricela</p>
+    <p class="apertura-texto">Te brindamos una grata noticia</p>
+    <button id="btn-abrir" class="apertura-btn">Pulsa aquí y desliza</button>
+  </div>
+</div>
+
+<!-- ==================== INDICADOR DE DESLIZAR ==================== -->
+<div class="indicador-desliza" id="indicador-desliza">
+  <svg class="indicador-mano" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 12V5.5a1.5 1.5 0 0 1 3 0V11"/>
+    <path d="M12 11V4.5a1.5 1.5 0 0 1 3 0V11"/>
+    <path d="M15 11.2V6.5a1.5 1.5 0 0 1 3 0V14"/>
+    <path d="M9 12l-1.6-1.6a1.4 1.4 0 0 0-2 2L9 16.5c1 2.3 3 4 6 4 3 0 5-2.2 5-5.5V10"/>
+  </svg>
+  <span class="indicador-texto">Desliza</span>
+</div>
+
+<div class="esquela">
+
+  <!-- ==================== 1. SLIDER PRINCIPAL SUPERIOR ==================== -->
+  <div class="slider-box" id="slider1">
+    <img src="mari y yo 00.jpeg" class="slide active" alt="Foto 1">
+    <img src="mari y yo 01.jpeg" class="slide" alt="Foto 2">
+    <img src="mari y yo 02.jpeg" class="slide" alt="Foto 3">
+  </div>
+
+  <!-- ==================== 2. ENCABEZADO FORMAL COMPLETO ==================== -->
+  <div class="seccion reveal">
+
+    <h1>Samuel Santisteban Serra</h1>
+    <span class="ampersand">&amp;</span>
+    <h1>Maricela Julón Cerdán</h1>
+
+    <p class="oracion">
+      "Encontré en ti el reflejo de la palabra del Señor, y hoy unimos nuestro amor ante su altar. Creemos en el matrimonio como nuestro camino compartido hacia la santidad. ¡Que la bendición de nuestro hogar encienda la fe en más corazones!<br><b>¡ Amén!</b>"
+    </p>
+
+    <!-- SELLO DE LOS NOVIOS -->
+    <div class="sello-container">
+      <div class="sello-vintage">S<span>&amp;</span>M</div>
+    </div>
+
+    <!-- PADRES -->
+    <div class="subtitulo-familia">CON LA BENDICIÓN DE NUESTROS PADRES</div>
+    <div class="grid-dos-columnas">
+      <div>
+        <p><b>Carlota Serra Rosas Vda de Santisteban.</b></p>
+        <p> </p>
+      </div>
+      <div>
+        <p><b>Daniel Julón Felipe</b></p>
+        <p><b>Domitila Cerdán Peralta</b></p>
+      </div>
+    </div>
+
+    <!-- HIJOS -->
+    <div class="subtitulo-familia" style="margin-top:25px;">EL AMOR DE NUESTRA HIJA</div>
+    <div style="font-size: 1.25rem; color: var(--texto-suave);">
+      <p><b>Samantha Valeria Suzume Santisteban Julón</b></p>
+      <p><b></b></p>
+    </div>
+
+  </div>
+
+  <!-- ==================== 3. CONTADOR REGRESIVO ==================== -->
+  <div class="seccion reveal">
+    <svg class="icono-decorativo" viewBox="0 0 24 24" style="width: 63px; height: 63px;">
+      <circle cx="8.5" cy="13.5" r="6"/>
+      <circle cx="15.5" cy="13.5" r="6"/>
+    </svg>
+
+    <div class="fecha-destacada">Sábado, 10 de Octubre de 2026 — 15:10 HRS</div>
+
+    <small id="titulo-contador" style="letter-spacing: 2px; color: #777;">SOLO FALTAN:</small>
+    <div class="contador-grid" id="grid-contador">
+      <div class="c-box"><span class="c-num" id="dias">00</span><span class="c-lab">Días</span></div>
+      <div class="c-box"><span class="c-num" id="horas">00</span><span class="c-lab">Horas</span></div>
+      <div class="c-box"><span class="c-num" id="minutos">00</span><span class="c-lab">Min</span></div>
+      <div class="c-box"><span class="c-num" id="segundos">00</span><span class="c-lab">Seg</span></div>
+    </div>
+  </div>
+
+  <!-- ==================== 4. CEREMONIA RELIGIOSA ==================== -->
+  <div class="seccion reveal">
+    <svg class="icono-decorativo" viewBox="0 0 24 24">
+      <path d="M12 2v3"/>
+      <path d="M10.3 3.7h3.4"/>
+      <path d="M12 5l8 6v11H4V11l8-6Z"/>
+      <path d="M9.5 22v-5a2.5 2.5 0 0 1 5 0v5"/>
+    </svg>
+    <h2>Ceremonia Religiosa</h2>
+    <p><b>Iglesia Ntra Señora de la Cruz - ATE</b></p>
+    <b style="font-size: 1.25rem; color: var(--texto-suave);"><b>Sábado, 10 de Octubre de 2026 — 15:10 HRS</b></p>
+    <a href="https://maps.app.goo.gl/NNPbAuKJsmwV46Kt7" target="_blank" class="btn-dorado">Ver Ubicación en Mapa</a>
+  </div>
+
+  <!-- ==================== 5. ITINERARIO ==================== -->
+  <div class="seccion reveal">
+    <svg class="icono-decorativo" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M12 7.5V12l3.2 2"/>
+    </svg>
+    <h2>Itinerario</h2>
+
+    <div class="itinerario-lista">
+
+      <div class="itinerario-item reveal" style="transition-delay:0.2s;">
+        <svg class="icono-dorado" viewBox="0 0 24 24">
+          <path d="M12 2v3"/>
+          <path d="M10.3 3.7h3.4"/>
+          <path d="M12 5l8 6v11H4V11l8-6Z"/>
+          <path d="M9.5 22v-5a2.5 2.5 0 0 1 5 0v5"/>
+        </svg>
+        <span class="itinerario-hora">15:10 HRS</span>
+        <span class="itinerario-nombre">Ceremonia Religiosa</span>
+      </div>
+
+      <div class="itinerario-item reveal" style="transition-delay:0.16s;">
+        <svg class="icono-dorado" viewBox="0 0 24 24">
+          <path d="M4 21V11a8 8 0 0 1 16 0v10"/>
+          <path d="M2 21h20"/>
+        </svg>
+        <span class="itinerario-hora">16:30 HRS</span>
+        <span class="itinerario-nombre">Brindis (Salon parroquial)</span>
+      </div>
+
+      <div class="itinerario-item reveal" style="transition-delay:0.16s;">
+        <svg class="icono-dorado" viewBox="0 0 24 24">
+          <path d="M5 3h4.5l-.8 6.2a1.5 1.7 0 0 1-2.9 0L5 3Z"/>
+          <path d="M7.3 9.5V16M4.5 16h5.6"/>
+          <path d="M14.5 5h4.5l-.8 5.2a1.5 1.7 0 0 1-2.9 0L14.5 5Z"/>
+          <path d="M16.7 10.2V16M13.9 16h5.6"/>
+        </svg>
+        <span class="itinerario-hora">17:00 HRS</span>
+        <span class="itinerario-nombre">Recepciones</span>
+      </div>
+
+      <div class="itinerario-item reveal" style="transition-delay:0.34s;">
+        <svg class="icono-dorado" viewBox="0 0 24 24">
+          <path d="M6 2v6a1.5 1.5 0 0 0 3 0V2M7.5 8v13"/>
+          <path d="M16.5 2c-1 2-1.5 4-1.5 6s1 2.5 1.5 3v10"/>
+        </svg>
+        <span class="itinerario-hora">20:00 HRS</span>
+        <span class="itinerario-nombre">Cena</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== 6. RECEPCIÓN ==================== -->
+  <div class="seccion reveal">
+    <svg class="icono-decorativo" viewBox="0 0 24 24">
+      <path d="M5 3h4.5l-.8 6.2a1.5 1.7 0 0 1-2.9 0L5 3Z"/>
+      <path d="M7.3 9.5V16M4.5 16h5.6"/>
+      <path d="M14.5 5h4.5l-.8 5.2a1.5 1.7 0 0 1-2.9 0L14.5 5Z"/>
+      <path d="M16.7 10.2V16M13.9 16h5.6"/>
+    </svg>
+    <h2>Recepción</h2>
+    <p><b>Los Claveles Mz. F - Lt. 4 ATE</b></p>
+    <p style="font-size: 0.9rem; color: var(--texto-suave);">referencial: Geralnetsoft</p>
+    <a href="https://maps.app.goo.gl/Y8u5WY9YuzUNkCRFA" target="_blank" class="btn-dorado">Ver Ubicación en Mapa</a>
+  </div>
+
+  <!-- ==================== 7. SUGERENCIA DE REGALO ==================== -->
+  <div class="seccion reveal">
+    <svg class="icono-decorativo" viewBox="0 0 24 24">
+      <rect x="3" y="9" width="18" height="12" rx="1"/>
+      <path d="M3 13h18M12 9v12"/>
+      <path d="M8.2 9a2.6 2.6 0 1 1 0-5.2c1.7 0 3 2.3 3.8 5.2M15.8 9a2.6 2.6 0 1 0 0-5.2c-1.7 0-3 2.3-3.8 5.2"/>
+    </svg>
+    <h2>Sugerencia de Regalo</h2>
+    <p style="font-size: 1.25rem; color: #444; max-width: 500px; margin: 0 auto;">
+      Nuestro mejor regalo es que estes con nosotros en nuestro día, pero si quieres hacernos un obsequio, para nuestra luna de miel ¡aquí está nuestro número de cuenta!<br><b>¡Mil gracias!</b>
+    </p>
+
+    <div class="banco-card">
+      <p><b>N° de cuenta Scotiabank Soles:</b> 038-8610420</p>
+      <p><b>cuenta interbancaria:</b> 00922520038861042049</p>
+      <p style="font-size: 1.05rem; margin-top: 6px;"><b>A nombre de:</b> Samuel Santisteban Serra</p>
+    </div>
+  </div>
+
+  <!-- ==================== 8. CONFIRMACIÓN RSVP (WHATSAPP) ==================== -->
+  <div class="seccion reveal">
+    <p style="font-size: 0.88rem; font-weight: bold; color: var(--dorado-oscuro); margin-bottom: 12px; letter-spacing: 1px;">
+      TU PRESENCIA ES IMPORTANTE PARA NOSOTROS, POR FAVOR CONFIRMA TU PRESENCIA
+    </p>
+
+  <a href="https://api.whatsapp.com/send?phone=51963776037&text=%C2%A1Hola!%20Samuel%20y%20Maricela,%20confirmo%20mi%20asistencia%20a%20la%20boda.%20Entiendo%20que%20mi%20pase%20es%20personal%20y%20guardo%20la%20fecha%20para%20acompa%C3%B1arlos." target="_blank" class="btn-dorado btn-wsp">
+    Confirmar por WhatsApp
+  </a>
+  </div>
+
+  <!-- ==================== 9. SLIDER INFERIOR ==================== -->
+  <div class="slider-box" id="slider2" style="height: 350px;">
+    <img src="mari y yo 04.jpeg" class="slide active" alt="Foto 4">
+    <img src="mari y yo 05.jpeg" class="slide" alt="Foto 5">
+    <img src="mari y yo 06.png" class="slide" alt="Foto 6">
+  </div>
+
+  <div class="seccion reveal" style="border-bottom: none; margin-top: 15px;">
+    <h2>¡Te esperamos!</h2>
+  </div>
+
+
+<!-- ==================== 10. SECCIÓN ÁLBUM DE FOTOS ==================== -->
+  <div class="seccion reveal" style="text-align: center; padding: 20px 10px;">
+    
+    <!-- Título con trazos elegantes -->
+    <h2 class="titulo-script" style="font-size: 2.2em; color: #b89756; margin-bottom: 5px;">
+      ~ Álbum de fotos ~
+    </h2>
+    
+    <p style="color: #d46a6a; font-weight: bold; font-size: 1.1em; margin-bottom: 15px;">
+      ¡Ayúdanos a inmortalizar cada momento!
+    </p>
+
+    <!-- Icono de Cámara Estilizada (SVG) -->
+    <div style="margin: 15px 0;">
+      <svg width="80" height="50" viewBox="0 0 100 60" fill="none" stroke="#b89756" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 30 Q 25 30, 35 30 L 40 20 L 60 20 L 65 30 Q 75 30, 90 30" />
+        <rect x="25" y="22" width="50" height="32" rx="5" />
+        <circle cx="50" cy="38" r="9" />
+        <circle cx="65" cy="28" r="2" fill="#b89756" />
+      </svg>
+    </div>
+
+    <p style="color: #444; font-size: 0.95em; line-height: 1.5; max-width: 320px; margin: 0 auto 15px auto;">
+      Escanea este QR o haz clic en él y comparte las fotos que tomes durante la boda. ¡Nos hará muchísima ilusión verlas!
+    </p>
+
+    <!-- QR clickeable hacia la carpeta de Google Drive -->
+    <div style="margin: 15px 0;">
+      <a href="https://drive.google.com/drive/folders/1NIwH4qrM-rT71dlexpgZh-C6g3XzzimW?usp=sharing" target="_blank" title="Abrir Álbum de Fotos">
+        <img src="QrAlbum.PNG" alt="Código QR Álbum de Fotos" style="width: 160px; height: 160px; border: 2px solid #b89756; padding: 5px; background: #fff; border-radius: 8px;">
+      </a>
+    </div>
+
+    <!-- Código o identificador del álbum -->
+    <p style="font-size: 0.9em; color: #555; margin-top: 10px;">
+      Código del álbum
+    </p>
+    <div style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: #d46a6a; font-weight: bold; font-size: 1em;">
+      <!-- Icono carpeta/álbum -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d46a6a" stroke-width="2">
+        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+      </svg>
+      <a href="https://drive.google.com/drive/folders/1NIwH4qrM-rT71dlexpgZh-C6g3XzzimW?usp=sharing" style="text-decoration: none; color: inherit;" target="_blank">
+        <span>BODA-S&M26</span>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- ==================== 11. FINAL Y DESPEDIDA ==================== -->
+  <div class="seccion reveal" style="border-bottom: none; margin-top: 25px; text-align: center;">
+    <h2 style="color: #b89756; letter-spacing: 2px; text-transform: uppercase;">¡Te esperamos!</h2>
+    
+    <!-- Adorno final de corazón con lazo en dorado (SVG) -->
+    <div style="margin-top: 20px;">
+      <svg width="120" height="30" viewBox="0 0 120 30" fill="none" stroke="#b89756" stroke-width="2" stroke-linecap="round">
+        <path d="M 10,15 Q 30,0 50,15 C 55,8 65,8 70,15 Q 90,30 110,15" />
+        <path d="M 53,13 C 50,8 57,3 60,9 C 63,3 70,8 67,13 C 65,16 60,19 60,19 C 60,19 55,16 53,13 Z" fill="#b89756" />
+      </svg>
+    </div>
+  </div>
+
+</div>
+
+<!-- 1. REPRODUCTOR -->
+<audio id="musica-boda" loop preload="auto">
+  <source src="Edd_Sheeran_Perfect.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 2. BOTÓN FLOTANTE MÚSICA -->
+<button id="btn-musica" onclick="toggleMusica()" class="btn-flotante" title="Activar/Silenciar música">
+  <span id="icono-musica">🎵</span>
+</button>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+  // ---------- SLIDER FOTOS ----------
+  function iniciarSlider(idContenedor, ms = 3500) {
+    const box = document.getElementById(idContenedor);
+    const fotos = box.getElementsByClassName('slide');
+    let idx = 0;
+    setInterval(() => {
+      fotos[idx].classList.remove('active');
+      idx = (idx + 1) % fotos.length;
+      fotos[idx].classList.add('active');
+    }, ms);
+  }
+  iniciarSlider('slider1', 5500);
+  iniciarSlider('slider2', 5500);
+
+  // ---------- CONTADOR REGRESIVO ----------
+  const fechaEvento = new Date(2026, 9, 10, 15, 45, 0).getTime();
+
+  function actualizarReloj() {
+    const ahora = new Date().getTime();
+    let diferencia = fechaEvento - ahora;
+
+    const grid = document.getElementById('grid-contador');
+    const titulo = document.getElementById('titulo-contador');
+
+    if (diferencia < 0) {
+      diferencia = Math.abs(diferencia);
+      grid.classList.add('vencido');
+      titulo.classList.add('vencido-texto');
+      titulo.innerText = "TIEMPO TRANSCURRIDO DESDE EL EVENTO:";
+    } else {
+      grid.classList.remove('vencido');
+      titulo.classList.remove('vencido-texto');
+      titulo.innerText = "SOLO FALTAN:";
+    }
+
+    const pad = n => n < 10 ? '0' + n : n;
+    document.getElementById('dias').innerText = pad(Math.floor(diferencia / (1000 * 60 * 60 * 24)));
+    document.getElementById('horas').innerText = pad(Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+    document.getElementById('minutos').innerText = pad(Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60)));
+    document.getElementById('segundos').innerText = pad(Math.floor((diferencia % (1000 * 60)) / 1000));
+  }
+  actualizarReloj();
+  setInterval(actualizarReloj, 1000);
+
+  // ---------- MÚSICA ----------
+  const audio = document.getElementById('musica-boda');
+  const btnIcono = document.getElementById('icono-musica');
+
+  function toggleMusica() {
+    if (audio.paused) {
+      audio.play().then(() => { btnIcono.innerText = '🔊'; }).catch(() => {});
+    } else {
+      audio.pause();
+      btnIcono.innerText = '🔇';
+    }
+  }
+
+  // ---------- APERTURA DE LA TARJETA ----------
+  const apertura = document.getElementById('apertura');
+  const btnAbrir = document.getElementById('btn-abrir');
+  const indicador = document.getElementById('indicador-desliza');
+  let yaAbierta = false;
+
+  function abrirTarjeta() {
+    if (yaAbierta) return;
+    yaAbierta = true;
+
+    apertura.classList.add('abierta');
+    document.body.classList.remove('bloqueado');
+
+    // intento de reproducir música al abrir (requiere interacción, que ya ocurrió)
+    audio.play().then(() => { btnIcono.innerText = '🔊'; }).catch(() => {});
+
+    setTimeout(() => {
+      apertura.style.display = 'none';
+      // mostramos el indicador de deslizar un instante después de revelar el contenido
+      indicador.classList.add('mostrar');
+    }, 1500);
+  }
+
+  btnAbrir.addEventListener('click', abrirTarjeta);
+
+  // también permite abrir deslizando (swipe hacia arriba) sobre la tarjeta cerrada
+  let touchStartY = null;
+  apertura.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
+  apertura.addEventListener('touchmove', e => {
+    if (touchStartY === null) return;
+    const delta = touchStartY - e.touches[0].clientY;
+    if (delta > 40) { abrirTarjeta(); touchStartY = null; }
+  }, { passive: true });
+
+  // ---------- OCULTAR INDICADOR AL PRIMER DESLIZAMIENTO REAL DE LA PÁGINA ----------
+  let primerScroll = false;
+  window.addEventListener('scroll', () => {
+    if (!primerScroll && yaAbierta) {
+      primerScroll = true;
+      indicador.classList.remove('mostrar');
+      indicador.classList.add('oculto');
+    }
+  }, { passive: true });
+
+  // ---------- REVELADO AL DESLIZAR (scroll reveal) ----------
+  const elementosRevelar = document.querySelectorAll('.reveal');
+  const observador = new IntersectionObserver((entradas) => {
+    entradas.forEach(entrada => {
+      if (entrada.isIntersecting) {
+        entrada.target.classList.add('visible');
+        observador.unobserve(entrada.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+  // Alterna la dirección de entrada (izquierda/derecha) para cada elemento, en orden de aparición en la página
+  elementosRevelar.forEach((el, i) => {
+    el.classList.add(i % 2 === 0 ? 'reveal-izq' : 'reveal-der');
+    observador.observe(el);
+  });
+</script>
+
+</body>
+</html>
