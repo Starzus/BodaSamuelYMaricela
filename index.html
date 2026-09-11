@@ -25,19 +25,28 @@
 
     html, body { height: 100%; }
 
+    html {
+      overflow-x: hidden;
+      width: 100%;
+    }
+
     body {
       background-color: var(--bg-web);
       color: var(--texto);
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
+      font-size: clamp(1rem, 0.94rem + 0.3vw, 1.15rem);
       text-align: center;
       line-height: 1.65;
+      overflow-x: hidden;
+      width: 100%;
     }
 
     body.bloqueado {
       overflow: hidden;
       height: 100vh;
     }
+
+    img { max-width: 100%; }
 
     /* ESQUELA */
     .esquela {
@@ -47,6 +56,7 @@
       background: var(--blanco);
       box-shadow: 0 10px 30px rgba(0,0,0,0.08);
       padding-bottom: 40px;
+      overflow: hidden;
     }
 
     .seccion { padding: 35px 25px; border-bottom: 1px dashed #e5dfd3; }
@@ -55,7 +65,7 @@
     /* Nombre de los novios */
     h1 {
       font-family: 'Great Vibes', serif;
-      font-size: 2.8rem;
+      font-size: clamp(2.1rem, 1.55rem + 3.8vw, 2.8rem);
       letter-spacing: 2px;
       color: var(--dorado-oscuro);
       margin: 15px 0;
@@ -64,7 +74,7 @@
 
     h2 {
       font-family: 'Cinzel', serif;
-      font-size: 1.4rem;
+      font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
       letter-spacing: 1px;
       color: var(--dorado-oscuro);
       margin-bottom: 15px;
@@ -72,7 +82,7 @@
 
     .ampersand {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.8rem;
+      font-size: clamp(1.9rem, 1.5rem + 2.5vw, 2.8rem);
       color: var(--dorado);
       display: block;
       margin: 5px 0;
@@ -81,7 +91,7 @@
 /* Texto oracion */
     .oracion {
       font-style: italic;
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 0.94rem + 0.35vw, 1.2rem);
       color: var(--texto-suave);
       max-width: 550px;
       margin: 0 auto 20px auto;
@@ -140,6 +150,7 @@
       top: 0; left: 0;
       width: 100%;
       height: 100%;
+      max-width: none;
       opacity: 0;
       transition: opacity 1s ease-in-out;
       object-fit: cover;
@@ -148,7 +159,7 @@
 
     /* GRID DE PADRES E HIJOS */
     .subtitulo-familia {
-      font-size: 1.25rem;
+      font-size: clamp(1.05rem, 0.98rem + 0.35vw, 1.25rem);
       letter-spacing: 2px;
       font-weight: 600;
       color: var(--dorado);
@@ -160,7 +171,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 5px;
-      font-size: 1.15rem;
+      font-size: clamp(1rem, 0.94rem + 0.3vw, 1.15rem);
       color: var(--texto-suave);
       margin-bottom: 10px;
     }
@@ -179,8 +190,8 @@
       border-radius: 8px;
       min-width: 75px;
     }
-    .c-num { font-size: 1.5rem; font-weight: bold; color: var(--dorado-oscuro); display: block; }
-    .c-lab { font-size: 0.65rem; text-transform: uppercase; color: #777; }
+    .c-num { font-size: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem); font-weight: bold; color: var(--dorado-oscuro); display: block; }
+    .c-lab { font-size: 0.7rem; text-transform: uppercase; color: #777; }
 
     .vencido .c-num { color: var(--plomo) !important; }
     .vencido-texto { color: var(--plomo) !important; }
@@ -201,11 +212,11 @@
     .itinerario-hora {
       font-weight: 600;
       color: var(--dorado-oscuro);
-      font-size: 1.25rem;
+      font-size: clamp(1.05rem, 0.98rem + 0.35vw, 1.25rem);
       min-width: 75px;
     }
     .itinerario-nombre {
-      font-size: 0.92rem;
+      font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.02rem);
       color: var(--texto);
     }
 
@@ -222,6 +233,19 @@
     .icono-dorado { width: 42px; height: 42px; }      /* antes 28px */
     .icono-decorativo { width: 54px; height: 54px; margin-bottom: 8px; } /* antes 36px */
 
+    /* Latido suave solo para íconos de corazón */
+    .icono-latido {
+      transform-origin: center;
+      animation: latido 1.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    }
+    @keyframes latido {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .icono-latido { animation: none; }
+    }
+
     /* BOTONES */
     .btn-dorado {
       display: inline-block;
@@ -237,7 +261,7 @@
       box-shadow: 0 4px 15px rgba(166, 124, 30, 0.35);
       border: 1px solid #e2c068;
       margin-top: 15px;
-      transition: all 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.65s cubic-bezier(0.22,1,0.36,1);
       cursor: pointer;
     }
     .btn-dorado:hover {
@@ -259,65 +283,114 @@
       padding: 18px;
       border-radius: 8px;
       margin-top: 15px;
-      font-size: 1.25rem;
+      font-size: clamp(1.05rem, 1rem + 0.25vw, 1.25rem);
     }
 
-    /* ===================== REVELADO AL DESLIZAR (scroll reveal) ===================== */
-    .reveal {
+    /* ===================== REVELADO DE TEXTO POR PALABRAS (scroll-triggered) ===================== */
+    /* El contenedor .reveal ya no se mueve por sí mismo: solo actúa como disparador
+       para que sus palabras e íconos internos aparezcan en cascada, como si una
+       mano invisible los fuese colocando uno a uno. */
+    .reveal { }
+
+    .palabra-revelada,
+    .icono-revelado,
+    .imagen-revelada {
+      display: inline-block;
       opacity: 0;
-      filter: blur(9px);
-      transform: translateX(var(--desde-x, -60px)) rotate(var(--desde-rot, -30deg));
-      transform-origin: bottom center;
-      transition: opacity 1.7s cubic-bezier(.19,1,.22,1), transform 1.7s cubic-bezier(.19,1,.22,1), filter 1.7s cubic-bezier(.19,1,.22,1);
-      will-change: transform, opacity, filter;
+      transform: translateY(14px);
+      transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: calc(var(--i, 0) * 110ms);
+      will-change: opacity, transform;
     }
-    .reveal.visible {
+
+    /* Para bloques que deben conservar su ancho completo (p. ej. la tarjeta
+       del banco): mismo efecto de aparición, sin forzar inline-block */
+    .bloque-suave {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: calc(var(--i, 0) * 110ms);
+      will-change: opacity, transform;
+    }
+
+    .reveal.visible .palabra-revelada,
+    .reveal.visible .icono-revelado,
+    .reveal.visible .imagen-revelada,
+    .reveal.visible .bloque-suave {
       opacity: 1;
-      filter: blur(0);
-      transform: translateX(0) rotate(0deg);
+      transform: translateY(0);
     }
-    .reveal-izq { --desde-x: -60px; --desde-rot: -30deg; }
-    .reveal-der { --desde-x: 60px; --desde-rot: 30deg; }
+
     @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; filter: none; transform: none; transition: none; }
+      .palabra-revelada, .icono-revelado, .imagen-revelada, .bloque-suave {
+        opacity: 1; transform: none; transition: none;
+      }
     }
 
     /* AJUSTE RESPONSIVE */
     @media (max-width: 600px) {
       .esquela { border-radius: 0; box-shadow: none; }
       .seccion { padding: 25px 15px; }
-      h1 { font-size: 1.4rem; }
       .grid-dos-columnas { grid-template-columns: 1fr; gap: 6px; }
       .slider-box { height: 300px; }
       .c-box { min-width: 60px; padding: 8px; }
-      .c-num { font-size: 1.2rem; }
     }
 
-    /* BOTÓN FLOTANTE MÚSICA */
+    /* ===================== BOTÓN FLOTANTE MÚSICA (rediseñado) ===================== */
     .btn-flotante {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 48px;
-      height: 48px;
+      top: 18px;
+      right: 18px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #d4af37 0%, #a67c1e 100%);
-      color: #fff;
-      border: 2px solid #fff;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      font-size: 1.2rem;
+      background: radial-gradient(circle at 35% 30%, #fffdf6 0%, #f7ecc9 55%, #e9d497 100%);
+      border: 1.5px solid var(--dorado);
+      box-shadow: 0 4px 14px rgba(158, 122, 27, 0.3);
       cursor: pointer;
-      z-index: 500;
+      z-index: 900;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      padding: 0;
     }
     .btn-flotante:active { transform: scale(0.9); }
+    .btn-flotante::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 1px solid var(--dorado);
+      opacity: 0;
+      transform: scale(0.85);
+    }
+    .btn-flotante.sonando::before {
+      animation: onda-musica 2.2s cubic-bezier(0.3, 0, 0.4, 1) infinite;
+    }
+    @keyframes onda-musica {
+      0% { opacity: 0.55; transform: scale(0.85); }
+      100% { opacity: 0; transform: scale(1.45); }
+    }
+    .icono-musica-svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--dorado-oscuro);
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .icono-musica-svg .nota-relleno { fill: var(--dorado-oscuro); stroke: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .btn-flotante.sonando::before { animation: none; }
+    }
 
     .fecha-destacada {
       font-family: 'Cinzel', serif;
-      font-size: 1.25rem;
+      font-size: clamp(1.05rem, 1rem + 0.3vw, 1.25rem);
       font-weight: 600;
       color: var(--dorado-oscuro);
       margin: 12px 0 15px 0;
@@ -363,6 +436,7 @@
       z-index: 2;
       padding: 20px;
       max-width: 380px;
+      width: 100%;
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
     .apertura.abierta .apertura-contenido {
@@ -379,13 +453,13 @@
 
     .apertura-nombres {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.6rem;
+      font-size: clamp(2.1rem, 1.7rem + 2.5vw, 2.6rem);
       color: var(--dorado-oscuro);
       line-height: 1.15;
       margin-bottom: 14px;
     }
     .apertura-nombres .amp-mini {
-      font-size: 1.9rem;
+      font-size: clamp(1.5rem, 1.3rem + 1.5vw, 1.9rem);
       color: var(--dorado);
       display: inline-block;
       margin: 0 6px;
@@ -419,7 +493,7 @@
     }
     .apertura-btn:active { transform: scale(0.96); }
 
-    /* ===================== INDICADOR "DESLIZA" ===================== */
+    /* ===================== INDICADOR "DESLIZA" (pendular vertical, solo al inicio) ===================== */
     .indicador-desliza {
       position: fixed;
       bottom: 22px;
@@ -441,13 +515,12 @@
       width: 30px;
       height: 30px;
       color: var(--dorado-oscuro);
-      transform-origin: 50% 10%;
-      animation: pendulo 1.5s ease-in-out infinite;
+      animation: desliza-vertical 2.1s cubic-bezier(0.45, 0, 0.55, 1) infinite;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
     }
-    @keyframes pendulo {
-      0%, 100% { transform: rotate(-14deg); }
-      50% { transform: rotate(14deg); }
+    @keyframes desliza-vertical {
+      0%, 100% { transform: translateY(-13px); }
+      50% { transform: translateY(13px); }
     }
     .indicador-texto {
       font-size: 0.62rem;
@@ -477,7 +550,7 @@
   </div>
 </div>
 
-<!-- ==================== INDICADOR DE DESLIZAR ==================== -->
+<!-- ==================== INDICADOR DE DESLIZAR (vertical, se oculta al primer scroll real) ==================== -->
 <div class="indicador-desliza" id="indicador-desliza">
   <svg class="indicador-mano" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M9 12V5.5a1.5 1.5 0 0 1 3 0V11"/>
@@ -490,7 +563,7 @@
 
 <div class="esquela">
 
-  <!-- ==================== 1. SLIDER PRINCIPAL SUPERIOR ==================== -->
+  <!-- ==================== 1. SLIDER PRINCIPAL SUPERIOR (sin animación de revelado) ==================== -->
   <div class="slider-box" id="slider1">
     <img src="mari y yo 00.jpeg" class="slide active" alt="Foto 1">
     <img src="mari y yo 01.jpeg" class="slide" alt="Foto 2">
@@ -500,11 +573,11 @@
   <!-- ==================== 2. ENCABEZADO FORMAL COMPLETO ==================== -->
   <div class="seccion reveal">
 
-    <h1>Samuel Santisteban Serra</h1>
+    <h1 class="txt-revelado">Samuel Santisteban Serra</h1>
     <span class="ampersand">&amp;</span>
-    <h1>Maricela Julón Cerdán</h1>
+    <h1 class="txt-revelado">Maricela Julón Cerdán</h1>
 
-    <p class="oracion">
+    <p class="oracion txt-revelado">
       "Encontré en ti el reflejo de la palabra del Señor, y hoy unimos nuestro amor ante su altar. Creemos en el matrimonio como nuestro camino compartido hacia la santidad. ¡Que la bendición de nuestro hogar encienda la fe en más corazones!<br><b>¡ Amén!</b>"
     </p>
 
@@ -514,21 +587,21 @@
     </div>
 
     <!-- PADRES -->
-    <div class="subtitulo-familia">CON LA BENDICIÓN DE NUESTROS PADRES</div>
+    <div class="subtitulo-familia txt-revelado">CON LA BENDICIÓN DE NUESTROS PADRES</div>
     <div class="grid-dos-columnas">
-      <div>
+      <div class="txt-revelado">
         <p><b>Carlota Serra Rosas Vda de Santisteban.</b></p>
         <p> </p>
       </div>
-      <div>
+      <div class="txt-revelado">
         <p><b>Daniel Julón Felipe</b></p>
         <p><b>Domitila Cerdán Peralta</b></p>
       </div>
     </div>
 
     <!-- HIJOS -->
-    <div class="subtitulo-familia" style="margin-top:25px;">EL AMOR DE NUESTRA HIJA</div>
-    <div style="font-size: 1.25rem; color: var(--texto-suave);">
+    <div class="subtitulo-familia txt-revelado" style="margin-top:25px;">EL AMOR DE NUESTRA HIJA</div>
+    <div class="txt-revelado" style="font-size: clamp(1.05rem, 1rem + 0.3vw, 1.25rem); color: var(--texto-suave);">
       <p><b>Samantha Valeria Suzume Santisteban Julón</b></p>
       <p><b></b></p>
     </div>
@@ -537,14 +610,14 @@
 
   <!-- ==================== 3. CONTADOR REGRESIVO ==================== -->
   <div class="seccion reveal">
-    <svg class="icono-decorativo" viewBox="0 0 24 24" style="width: 63px; height: 63px;">
+    <svg class="icono-decorativo icono-revelado" viewBox="0 0 24 24" style="width: 63px; height: 63px;">
       <circle cx="8.5" cy="13.5" r="6"/>
       <circle cx="15.5" cy="13.5" r="6"/>
     </svg>
 
-    <div class="fecha-destacada">Sábado, 10 de Octubre de 2026 — 15:10 HRS</div>
+    <div class="fecha-destacada txt-revelado">Sábado, 10 de Octubre de 2026 — 15:10 HRS</div>
 
-    <small id="titulo-contador" style="letter-spacing: 2px; color: #777;">SOLO FALTAN:</small>
+    <small id="titulo-contador" class="txt-revelado" style="letter-spacing: 2px; color: #777;">SOLO FALTAN:</small>
     <div class="contador-grid" id="grid-contador">
       <div class="c-box"><span class="c-num" id="dias">00</span><span class="c-lab">Días</span></div>
       <div class="c-box"><span class="c-num" id="horas">00</span><span class="c-lab">Horas</span></div>
@@ -555,66 +628,67 @@
 
   <!-- ==================== 4. CEREMONIA RELIGIOSA ==================== -->
   <div class="seccion reveal">
-    <svg class="icono-decorativo" viewBox="0 0 24 24">
+    <svg class="icono-decorativo icono-revelado" viewBox="0 0 24 24">
       <path d="M12 2v3"/>
       <path d="M10.3 3.7h3.4"/>
       <path d="M12 5l8 6v11H4V11l8-6Z"/>
       <path d="M9.5 22v-5a2.5 2.5 0 0 1 5 0v5"/>
     </svg>
-    <h2>Ceremonia Religiosa</h2>
-    <p><b>Iglesia Ntra Señora de la Cruz - ATE</b></p>
-    <b style="font-size: 1.25rem; color: var(--texto-suave);"><b>Sábado, 10 de Octubre de 2026 — 15:10 HRS</b></p>
-    <a href="https://maps.app.goo.gl/NNPbAuKJsmwV46Kt7" target="_blank" class="btn-dorado">Ver Ubicación en Mapa</a>
+    <h2 class="txt-revelado">Ceremonia Religiosa</h2>
+    <p class="txt-revelado"><b>Iglesia Nuestra Señora de la Cruz - ATE</b></p>
+    <b class="txt-revelado" style="font-size: clamp(1.05rem, 1rem + 0.3vw, 1.25rem); color: var(--texto-suave);"><b>Sábado, 10 de Octubre de 2026 — 15:10 HRS</b></b>
+    <p><a href="https://maps.app.goo.gl/NNPbAuKJsmwV46Kt7" target="_blank" class="btn-dorado icono-revelado">Ver Ubicación en Mapa</a></p>
+
   </div>
 
   <!-- ==================== 5. ITINERARIO ==================== -->
   <div class="seccion reveal">
-    <svg class="icono-decorativo" viewBox="0 0 24 24">
+    <svg class="icono-decorativo icono-revelado" viewBox="0 0 24 24">
       <circle cx="12" cy="12" r="9"/>
       <path d="M12 7.5V12l3.2 2"/>
     </svg>
-    <h2>Itinerario</h2>
+    <h2 class="txt-revelado">Itinerario</h2>
 
     <div class="itinerario-lista">
 
-      <div class="itinerario-item reveal" style="transition-delay:0.2s;">
-        <svg class="icono-dorado" viewBox="0 0 24 24">
+      <div class="itinerario-item reveal">
+        <svg class="icono-dorado icono-revelado" viewBox="0 0 24 24">
           <path d="M12 2v3"/>
           <path d="M10.3 3.7h3.4"/>
           <path d="M12 5l8 6v11H4V11l8-6Z"/>
           <path d="M9.5 22v-5a2.5 2.5 0 0 1 5 0v5"/>
         </svg>
-        <span class="itinerario-hora">15:10 HRS</span>
-        <span class="itinerario-nombre">Ceremonia Religiosa</span>
+        <span class="itinerario-hora txt-revelado">15:10 HRS</span>
+        <span class="itinerario-nombre txt-revelado">Ceremonia Religiosa</span>
       </div>
 
-      <div class="itinerario-item reveal" style="transition-delay:0.16s;">
-        <svg class="icono-dorado" viewBox="0 0 24 24">
+      <div class="itinerario-item reveal">
+        <svg class="icono-dorado icono-revelado" viewBox="0 0 24 24">
           <path d="M4 21V11a8 8 0 0 1 16 0v10"/>
           <path d="M2 21h20"/>
         </svg>
-        <span class="itinerario-hora">16:30 HRS</span>
-        <span class="itinerario-nombre">Brindis (Salon parroquial)</span>
+        <span class="itinerario-hora txt-revelado">16:30 HRS</span>
+        <span class="itinerario-nombre txt-revelado">Brindis (Salon parroquial)</span>
       </div>
 
-      <div class="itinerario-item reveal" style="transition-delay:0.16s;">
-        <svg class="icono-dorado" viewBox="0 0 24 24">
+      <div class="itinerario-item reveal">
+        <svg class="icono-dorado icono-revelado" viewBox="0 0 24 24">
           <path d="M5 3h4.5l-.8 6.2a1.5 1.7 0 0 1-2.9 0L5 3Z"/>
           <path d="M7.3 9.5V16M4.5 16h5.6"/>
           <path d="M14.5 5h4.5l-.8 5.2a1.5 1.7 0 0 1-2.9 0L14.5 5Z"/>
           <path d="M16.7 10.2V16M13.9 16h5.6"/>
         </svg>
-        <span class="itinerario-hora">17:00 HRS</span>
-        <span class="itinerario-nombre">Recepciones</span>
+        <span class="itinerario-hora txt-revelado">17:00 HRS</span>
+        <span class="itinerario-nombre txt-revelado">Recepciones</span>
       </div>
 
-      <div class="itinerario-item reveal" style="transition-delay:0.34s;">
-        <svg class="icono-dorado" viewBox="0 0 24 24">
+      <div class="itinerario-item reveal">
+        <svg class="icono-dorado icono-revelado" viewBox="0 0 24 24">
           <path d="M6 2v6a1.5 1.5 0 0 0 3 0V2M7.5 8v13"/>
           <path d="M16.5 2c-1 2-1.5 4-1.5 6s1 2.5 1.5 3v10"/>
         </svg>
-        <span class="itinerario-hora">20:00 HRS</span>
-        <span class="itinerario-nombre">Cena</span>
+        <span class="itinerario-hora txt-revelado">20:00 HRS</span>
+        <span class="itinerario-nombre txt-revelado">Cena</span>
       </div>
 
     </div>
@@ -622,31 +696,31 @@
 
   <!-- ==================== 6. RECEPCIÓN ==================== -->
   <div class="seccion reveal">
-    <svg class="icono-decorativo" viewBox="0 0 24 24">
+    <svg class="icono-decorativo icono-revelado" viewBox="0 0 24 24">
       <path d="M5 3h4.5l-.8 6.2a1.5 1.7 0 0 1-2.9 0L5 3Z"/>
       <path d="M7.3 9.5V16M4.5 16h5.6"/>
       <path d="M14.5 5h4.5l-.8 5.2a1.5 1.7 0 0 1-2.9 0L14.5 5Z"/>
       <path d="M16.7 10.2V16M13.9 16h5.6"/>
     </svg>
-    <h2>Recepción</h2>
-    <p><b>Los Claveles Mz. F - Lt. 4 ATE</b></p>
-    <p style="font-size: 0.9rem; color: var(--texto-suave);">referencial: Geralnetsoft</p>
-    <a href="https://maps.app.goo.gl/Y8u5WY9YuzUNkCRFA" target="_blank" class="btn-dorado">Ver Ubicación en Mapa</a>
+    <h2 class="txt-revelado">Recepción</h2>
+    <p class="txt-revelado"><b>Los Claveles Mz. F - Lt. 4 ATE</b></p>
+    <p class="txt-revelado" style="font-size: 0.9rem; color: var(--texto-suave);">referencial: Geralnetsoft</p>
+    <a href="https://maps.app.goo.gl/Y8u5WY9YuzUNkCRFA" target="_blank" class="btn-dorado icono-revelado">Ver Ubicación en Mapa</a>
   </div>
 
   <!-- ==================== 7. SUGERENCIA DE REGALO ==================== -->
   <div class="seccion reveal">
-    <svg class="icono-decorativo" viewBox="0 0 24 24">
+    <svg class="icono-decorativo icono-revelado" viewBox="0 0 24 24">
       <rect x="3" y="9" width="18" height="12" rx="1"/>
       <path d="M3 13h18M12 9v12"/>
       <path d="M8.2 9a2.6 2.6 0 1 1 0-5.2c1.7 0 3 2.3 3.8 5.2M15.8 9a2.6 2.6 0 1 0 0-5.2c-1.7 0-3 2.3-3.8 5.2"/>
     </svg>
-    <h2>Sugerencia de Regalo</h2>
-    <p style="font-size: 1.25rem; color: #444; max-width: 500px; margin: 0 auto;">
+    <h2 class="txt-revelado">Sugerencia de Regalo</h2>
+    <p class="txt-revelado" style="font-size: clamp(1.05rem, 1rem + 0.3vw, 1.25rem); color: #444; max-width: 500px; margin: 0 auto;">
       Nuestro mejor regalo es que estes con nosotros en nuestro día, pero si quieres hacernos un obsequio, para nuestra luna de miel ¡aquí está nuestro número de cuenta!<br><b>¡Mil gracias!</b>
     </p>
 
-    <div class="banco-card">
+    <div class="banco-card bloque-suave">
       <p><b>N° de cuenta Scotiabank Soles:</b> 038-8610420</p>
       <p><b>cuenta interbancaria:</b> 00922520038861042049</p>
       <p style="font-size: 1.05rem; margin-top: 6px;"><b>A nombre de:</b> Samuel Santisteban Serra</p>
@@ -655,16 +729,16 @@
 
   <!-- ==================== 8. CONFIRMACIÓN RSVP (WHATSAPP) ==================== -->
   <div class="seccion reveal">
-    <p style="font-size: 0.88rem; font-weight: bold; color: var(--dorado-oscuro); margin-bottom: 12px; letter-spacing: 1px;">
+    <p class="txt-revelado" style="font-size: 0.88rem; font-weight: bold; color: var(--dorado-oscuro); margin-bottom: 12px; letter-spacing: 1px;">
       TU PRESENCIA ES IMPORTANTE PARA NOSOTROS, POR FAVOR CONFIRMA TU PRESENCIA
     </p>
 
-  <a href="https://api.whatsapp.com/send?phone=51963776037&text=%C2%A1Hola!%20Samuel%20y%20Maricela,%20confirmo%20mi%20asistencia%20a%20la%20boda.%20Entiendo%20que%20mi%20pase%20es%20personal%20y%20guardo%20la%20fecha%20para%20acompa%C3%B1arlos." target="_blank" class="btn-dorado btn-wsp">
+  <a href="https://api.whatsapp.com/send?phone=51963776037&text=%C2%A1Hola!%20Samuel%20y%20Maricela,%20confirmo%20mi%20asistencia%20a%20la%20boda.%20Entiendo%20que%20mi%20pase%20es%20personal%20y%20guardo%20la%20fecha%20para%20acompa%C3%B1arlos." target="_blank" class="btn-dorado btn-wsp icono-revelado">
     Confirmar por WhatsApp
   </a>
   </div>
 
-  <!-- ==================== 9. SLIDER INFERIOR ==================== -->
+  <!-- ==================== 9. SLIDER INFERIOR (sin animación de revelado) ==================== -->
   <div class="slider-box" id="slider2" style="height: 350px;">
     <img src="mari y yo 04.jpeg" class="slide active" alt="Foto 4">
     <img src="mari y yo 05.jpeg" class="slide" alt="Foto 5">
@@ -672,25 +746,25 @@
   </div>
 
   <div class="seccion reveal" style="border-bottom: none; margin-top: 15px;">
-    <h2>¡Te esperamos!</h2>
+    <h2 class="txt-revelado">¡Te esperamos!</h2>
   </div>
 
 
 <!-- ==================== 10. SECCIÓN ÁLBUM DE FOTOS ==================== -->
   <div class="seccion reveal" style="text-align: center; padding: 20px 10px;">
-    
+
     <!-- Título con trazos elegantes -->
-    <h2 class="titulo-script" style="font-size: 2.2em; color: #b89756; margin-bottom: 5px;">
+    <h2 class="titulo-script txt-revelado" style="font-size: clamp(1.6rem, 1.4rem + 1vw, 2.2rem); color: #b89756; margin-bottom: 5px;">
       ~ Álbum de fotos ~
     </h2>
-    
-    <p style="color: #d46a6a; font-weight: bold; font-size: 1.1em; margin-bottom: 15px;">
+
+    <p class="txt-revelado" style="color: #d46a6a; font-weight: bold; font-size: clamp(1rem, 0.95rem + 0.3vw, 1.1rem); margin-bottom: 15px;">
       ¡Ayúdanos a inmortalizar cada momento!
     </p>
 
     <!-- Icono de Cámara Estilizada (SVG) -->
     <div style="margin: 15px 0;">
-      <svg width="80" height="50" viewBox="0 0 100 60" fill="none" stroke="#b89756" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg class="icono-revelado" width="80" height="50" viewBox="0 0 100 60" fill="none" stroke="#b89756" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M10 30 Q 25 30, 35 30 L 40 20 L 60 20 L 65 30 Q 75 30, 90 30" />
         <rect x="25" y="22" width="50" height="32" rx="5" />
         <circle cx="50" cy="38" r="9" />
@@ -698,22 +772,22 @@
       </svg>
     </div>
 
-    <p style="color: #444; font-size: 0.95em; line-height: 1.5; max-width: 320px; margin: 0 auto 15px auto;">
+    <p class="txt-revelado" style="color: #444; font-size: clamp(0.95rem, 0.9rem + 0.2vw, 0.95em); line-height: 1.5; max-width: 320px; margin: 0 auto 15px auto;">
       Escanea este QR o haz clic en él y comparte las fotos que tomes durante la boda. ¡Nos hará muchísima ilusión verlas!
     </p>
 
     <!-- QR clickeable hacia la carpeta de Google Drive -->
     <div style="margin: 15px 0;">
       <a href="https://drive.google.com/drive/folders/1NIwH4qrM-rT71dlexpgZh-C6g3XzzimW?usp=sharing" target="_blank" title="Abrir Álbum de Fotos">
-        <img src="QrAlbum.PNG" alt="Código QR Álbum de Fotos" style="width: 160px; height: 160px; border: 2px solid #b89756; padding: 5px; background: #fff; border-radius: 8px;">
+        <img class="imagen-revelada" src="QrAlbum.PNG" alt="Código QR Álbum de Fotos" style="width: 160px; height: 160px; border: 2px solid #b89756; padding: 5px; background: #fff; border-radius: 8px;">
       </a>
     </div>
 
     <!-- Código o identificador del álbum -->
-    <p style="font-size: 0.9em; color: #555; margin-top: 10px;">
+    <p class="txt-revelado" style="font-size: 0.9em; color: #555; margin-top: 10px;">
       Código del álbum
     </p>
-    <div style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: #d46a6a; font-weight: bold; font-size: 1em;">
+    <div class="txt-revelado" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: #d46a6a; font-weight: bold; font-size: 1em;">
       <!-- Icono carpeta/álbum -->
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d46a6a" stroke-width="2">
         <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
@@ -727,11 +801,11 @@
 
   <!-- ==================== 11. FINAL Y DESPEDIDA ==================== -->
   <div class="seccion reveal" style="border-bottom: none; margin-top: 25px; text-align: center;">
-    <h2 style="color: #b89756; letter-spacing: 2px; text-transform: uppercase;">¡Te esperamos!</h2>
-    
-    <!-- Adorno final de corazón con lazo en dorado (SVG) -->
+    <h2 class="txt-revelado" style="color: #b89756; letter-spacing: 2px; text-transform: uppercase;">¡Te esperamos!</h2>
+
+    <!-- Adorno final de corazón con lazo en dorado (SVG), con latido -->
     <div style="margin-top: 20px;">
-      <svg width="120" height="30" viewBox="0 0 120 30" fill="none" stroke="#b89756" stroke-width="2" stroke-linecap="round">
+      <svg class="icono-revelado icono-latido" width="120" height="30" viewBox="0 0 120 30" fill="none" stroke="#b89756" stroke-width="2" stroke-linecap="round">
         <path d="M 10,15 Q 30,0 50,15 C 55,8 65,8 70,15 Q 90,30 110,15" />
         <path d="M 53,13 C 50,8 57,3 60,9 C 63,3 70,8 67,13 C 65,16 60,19 60,19 C 60,19 55,16 53,13 Z" fill="#b89756" />
       </svg>
@@ -745,13 +819,24 @@
   <source src="Edd_Sheeran_Perfect.mp3" type="audio/mpeg">
 </audio>
 
-<!-- 2. BOTÓN FLOTANTE MÚSICA -->
+<!-- 2. BOTÓN FLOTANTE MÚSICA (icono de nota musical estilizado) -->
 <button id="btn-musica" onclick="toggleMusica()" class="btn-flotante" title="Activar/Silenciar música">
-  <span id="icono-musica">🎵</span>
+  <svg id="icono-musica" class="icono-musica-svg" viewBox="0 0 24 24">
+    <circle class="nota-relleno" cx="6.5" cy="18" r="2.6"/>
+    <circle class="nota-relleno" cx="16.5" cy="16" r="2.6"/>
+    <path d="M9 18V5.5L19 4v11.5"/>
+    <path d="M9 8.2 19 6.7"/>
+  </svg>
 </button>
 
 <!-- ==================== SCRIPTS ==================== -->
 <script>
+  // Evitar que el navegador restaure el scroll previo al recargar
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+
   // ---------- SLIDER FOTOS ----------
   function iniciarSlider(idContenedor, ms = 3500) {
     const box = document.getElementById(idContenedor);
@@ -798,14 +883,14 @@
 
   // ---------- MÚSICA ----------
   const audio = document.getElementById('musica-boda');
-  const btnIcono = document.getElementById('icono-musica');
+  const btnMusica = document.getElementById('btn-musica');
 
   function toggleMusica() {
     if (audio.paused) {
-      audio.play().then(() => { btnIcono.innerText = '🔊'; }).catch(() => {});
+      audio.play().then(() => { btnMusica.classList.add('sonando'); }).catch(() => {});
     } else {
       audio.pause();
-      btnIcono.innerText = '🔇';
+      btnMusica.classList.remove('sonando');
     }
   }
 
@@ -819,15 +904,19 @@
     if (yaAbierta) return;
     yaAbierta = true;
 
+    // Asegura que la tarjeta siempre inicie mostrando la parte de arriba
+    window.scrollTo(0, 0);
+
     apertura.classList.add('abierta');
     document.body.classList.remove('bloqueado');
 
     // intento de reproducir música al abrir (requiere interacción, que ya ocurrió)
-    audio.play().then(() => { btnIcono.innerText = '🔊'; }).catch(() => {});
+    audio.play().then(() => { btnMusica.classList.add('sonando'); }).catch(() => {});
 
     setTimeout(() => {
       apertura.style.display = 'none';
-      // mostramos el indicador de deslizar un instante después de revelar el contenido
+      window.scrollTo(0, 0);
+      // mostramos el indicador de deslizar; solo es relevante antes del primer scroll real
       indicador.classList.add('mostrar');
     }, 1500);
   }
@@ -843,32 +932,84 @@
     if (delta > 40) { abrirTarjeta(); touchStartY = null; }
   }, { passive: true });
 
-  // ---------- OCULTAR INDICADOR AL PRIMER DESLIZAMIENTO REAL DE LA PÁGINA ----------
+  // ---------- OCULTAR INDICADOR DE FORMA DEFINITIVA AL PRIMER DESLIZAMIENTO REAL ----------
+  // Una vez que la persona empieza a deslizar por su cuenta, la indicación ya no
+  // tiene razón de ser: se oculta y no se vuelve a mostrar en la sesión.
   let primerScroll = false;
-  window.addEventListener('scroll', () => {
-    if (!primerScroll && yaAbierta) {
-      primerScroll = true;
-      indicador.classList.remove('mostrar');
-      indicador.classList.add('oculto');
-    }
-  }, { passive: true });
+  function ocultarIndicadorParaSiempre() {
+    if (primerScroll) return;
+    primerScroll = true;
+    indicador.classList.remove('mostrar');
+    indicador.classList.add('oculto');
+    window.removeEventListener('scroll', ocultarIndicadorParaSiempre);
+    window.removeEventListener('touchmove', ocultarIndicadorParaSiempre);
+    window.removeEventListener('wheel', ocultarIndicadorParaSiempre);
+  }
+  window.addEventListener('scroll', () => { if (yaAbierta) ocultarIndicadorParaSiempre(); }, { passive: true });
+  window.addEventListener('touchmove', () => { if (yaAbierta) ocultarIndicadorParaSiempre(); }, { passive: true });
+  window.addEventListener('wheel', () => { if (yaAbierta) ocultarIndicadorParaSiempre(); }, { passive: true });
 
-  // ---------- REVELADO AL DESLIZAR (scroll reveal) ----------
-  const elementosRevelar = document.querySelectorAll('.reveal');
-  const observador = new IntersectionObserver((entradas) => {
+  // ================================================================
+  // REVELADO DE TEXTO POR PALABRAS, ACTIVADO POR SCROLL (SplitText casero)
+  // Cada frase marcada con .txt-revelado se separa en palabras individuales,
+  // que junto con íconos e imágenes cercanos entran en cascada de izquierda
+  // a derecha (opacity 0 -> 1, translateY 10px -> 0) cuando su sección
+  // entra en pantalla, como si una mano invisible los fuese colocando.
+  // ================================================================
+
+  function envolverPalabras(nodo) {
+    Array.from(nodo.childNodes).forEach(hijo => {
+      if (hijo.nodeType === Node.TEXT_NODE) {
+        if (!hijo.textContent.trim()) return;
+        const partes = hijo.textContent.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        partes.forEach(parte => {
+          if (parte.trim() === '') {
+            frag.appendChild(document.createTextNode(parte));
+          } else {
+            const span = document.createElement('span');
+            span.className = 'palabra-revelada';
+            span.textContent = parte;
+            frag.appendChild(span);
+          }
+        });
+        nodo.replaceChild(frag, hijo);
+      } else if (hijo.nodeType === Node.ELEMENT_NODE) {
+        envolverPalabras(hijo);
+      }
+    });
+  }
+
+  function prepararRevelado() {
+    document.querySelectorAll('.reveal').forEach(contenedor => {
+      // Dividir en palabras todo el texto marcado dentro de esta sección
+      contenedor.querySelectorAll('.txt-revelado').forEach(el => envolverPalabras(el));
+
+      // Reunir, en orden de aparición en el documento, todo lo animable:
+      // palabras, íconos y la imagen del QR
+      const animables = contenedor.querySelectorAll('.palabra-revelada, .icono-revelado, .imagen-revelada, .bloque-suave');
+      const TOPE_INDICE = 16; // evita retrasos excesivos en párrafos largos
+      animables.forEach((el, i) => {
+        el.style.setProperty('--i', Math.min(i, TOPE_INDICE));
+      });
+    });
+  }
+
+  prepararRevelado();
+
+  const observadorRevelado = new IntersectionObserver((entradas) => {
     entradas.forEach(entrada => {
       if (entrada.isIntersecting) {
         entrada.target.classList.add('visible');
-        observador.unobserve(entrada.target);
+        observadorRevelado.unobserve(entrada.target);
       }
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
 
-  // Alterna la dirección de entrada (izquierda/derecha) para cada elemento, en orden de aparición en la página
-  elementosRevelar.forEach((el, i) => {
-    el.classList.add(i % 2 === 0 ? 'reveal-izq' : 'reveal-der');
-    observador.observe(el);
-  });
+  document.querySelectorAll('.reveal').forEach(el => observadorRevelado.observe(el));
+
+  // Al cargar/recargar la página, siempre partimos desde arriba
+  window.addEventListener('load', () => window.scrollTo(0, 0));
 </script>
 
 </body>
